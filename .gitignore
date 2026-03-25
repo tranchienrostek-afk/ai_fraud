@@ -1,0 +1,40 @@
+# Environments
+.env
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDEs & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Data files (Exclude heavy raw and processed data)
+*.csv
+*.xlsx
+*.xlsb
+*.json
+*.pdf
+data/
+master_data/
+
+# Logs and debug output
+*.log
+*_debug.txt
+*_matches.txt
+
+# Temporary Recovery
+_recovery/
+temp/
+tmp/
+*.bak
+*.tmp
