@@ -1,0 +1,7 @@
+﻿--- RAW DATA MAGNITUDES (VALID REQ) ---
+Row 7589: Req=3,955,500 | Appr=3,955,500 | Fee=395,550,000
+  -> Req/Appr Ratio: 1.00
+  -> Fee/Appr Ratio: 100.00
+Row 8327: Req=1,103,280 | Appr=1,103,280 | Fee=110,328,000
+  -> Req/Appr Ratio: 1.00
+  -> Fee/Appr Ratio: 100.00

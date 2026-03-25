@@ -1,0 +1,15 @@
+FILE: DataChiPhi_part2.csv
+LINE: 432d5dfc-2fc4-4066-8aee-77790edbd1fb,6d4ce92a-496d-495b-aa4c-7213dc183b47,Chi phí điều trị và tiền giường,1,,4855101900.0,4855101900.0,THUOC,,,,2025-12-17 14:54:04
+--------------------
+FILE: DataChiPhi_part2.csv
+LINE: 98c6e771-af88-44f9-a78c-85b65d58a7e4,802b1c12-752e-4979-a130-35376e5f2822,Chi phí điều trị và tiền giường,1,,4855101900.0,4855101900.0,THUOC,,,,2025-09-18 14:34:03
+--------------------
+FILE: DataChiPhi_part3.csv
+LINE: 219ec130-d35c-4654-a49b-19c58d941f8e,b4f7457b-249c-4ebc-8c24-d7fc9be3dd07,Định lượng Urê máu [Máu],,,2240000.0,4480448000.0,THUOC,,,,2025-10-06 09:46:37
+--------------------
+FILE: DataChiPhi_part3.csv
+LINE: a4f7b384-f987-4f83-889d-4facb408a4dd,bfbff567-1455-4282-a0a3-4bf4976edc32,Hóa đơn điện tử theo Nghị định 123/2020/NĐ-CP,1,,761249900000.0,761249900000.0,THUOC,,,,2025-05-01 15:15:09
+--------------------
+FILE: DataChiPhi_part3.csv
+LINE: 6daa6436-15e2-4ec3-af0a-7deeec58b38b,c3599a9f-6546-437a-91ff-fb94143839a1,Chi phí điều trị và tiền giường,1,,4855101900.0,4855101900.0,THUOC,,,,2025-10-02 10:58:47
+--------------------

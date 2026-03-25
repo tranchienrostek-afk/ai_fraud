@@ -1,0 +1,55 @@
+﻿Loading 21 person files (DataNDBH)...
+Total Records in sample: 210000
+
+--- Salary Stats (Raw Sample) ---
+count    0.0
+mean     NaN
+std      NaN
+min      NaN
+25%      NaN
+50%      NaN
+75%      NaN
+max      NaN
+Name: salary, dtype: float64
+
+--- Top 10 High-Salary Persons ---
+                                user_id              full_name  salary
+0  163d45c8-b6b4-4086-8cf5-2d5404d05072        Huỳnh Kim Thạch     NaN
+1  9d9aec89-6169-41c6-a13b-152af776a949      Nông Thị Kiều Nga     NaN
+2  c3d66a44-6b2e-4aad-9b7e-1263be2e5842        Huỳnh Văn Giang     NaN
+3  56b2b987-8d40-4c9e-a934-6a9bdc8d9902          Tăng Quốc Bảo     NaN
+4  8967b9d8-db55-4706-8fe5-662b6ee9332f        Đoàn Xuân Phong     NaN
+5  0b853d01-6c2e-478b-8b6c-5b95a92a3459    Nguyễn Quốc Chung     NaN
+6  ad41b864-5dab-49fb-aae3-7eb5c9a8b666  Nguyễn Hoàng Anh Tuấn     NaN
+7  965b7507-9c1d-4f4e-aca0-36747bbd4804          Bùi Hữu Quang     NaN
+8  fde04e2f-b856-4a58-b06b-7a414e881029          Trần Trí Dũng     NaN
+9  f1c3cce9-9b30-4833-9674-acaf7e1157c7         Phan Thanh Huy     NaN
+
+--- Null Counts (Sample) ---
+user_id                         0
+identity_number               224
+full_name                       0
+date_of_birth                   0
+address                    210000
+phone_number                97653
+email                         689
+beneficiary_account        205602
+bank_code                  210000
+beneficiary_name           210000
+contract_id                     0
+so_hop_dong                     0
+contract_level                  0
+contract_start_date             0
+contract_end_date               0
+premium_paid                    0
+salary                     210000
+remaining_benefit_limit    135474
+active                          0
+created_at                      0
+dtype: int64
+
+--- ID/Phone Integrity ---
+Unique identities: 26301
+Unique phones: 22917
+
+--- Gender Distribution ---

@@ -1,0 +1,6 @@
+Dựa trên các tài liệu được cung cấp, các dấu hiệu trục lợi hoặc vi phạm liên quan đến thời gian chờ bảo hiểm bao gồm:
+
+- **Phát sinh yêu cầu bồi thường lớn ngay khi vừa qua thời gian chờ:** Khách hàng nộp hồ sơ yêu cầu bồi thường với số tiền lớn (ví dụ: từ 50 triệu VNĐ trở lên) ngay lập tức khi hợp đồng vừa bước qua thời gian chờ (dưới 30 ngày).
+- **Phát sinh thương tật hoặc bệnh lý nghiêm trọng ngay trong năm đầu tham gia:** Khách hàng mới tham gia bảo hiểm năm đầu tiên nhưng đã có hồ sơ yêu cầu bồi thường cho các tai nạn lớn hoặc bệnh lý nặng, ví dụ như tai nạn đứt dây chằng chéo.
+- **Nộp hồ sơ điều trị "Bệnh đặc biệt" hoặc "Bệnh có sẵn" khi chưa qua thời gian chờ quy định:** Khách hàng yêu cầu bồi thường cho các bệnh lý thuộc danh mục bệnh có sẵn (đã tồn tại, khám hoặc điều trị trước khi hợp đồng có hiệu lực) hoặc bệnh đặc biệt (như tăng huyết áp, ung thư, tim mạch, đái tháo đường, thoái hóa cột sống...) khi chưa đáp ứng đủ thời gian chờ (thường là 6 tháng/180 ngày hoặc 365 ngày tùy theo hợp đồng).
+- **Yêu cầu bồi thường bệnh thông thường quá sớm:** Khách hàng đi khám và yêu cầu chi trả cho các ốm đau, bệnh tật thông thường khi chưa vượt qua thời gian chờ cơ bản là 30 ngày kể từ ngày bắt đầu tham gia hợp đồng bảo hiểm.

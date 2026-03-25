@@ -1,0 +1,58 @@
+HEADERS: ﻿detail_id,claim_id,drug_or_service_name,quantity,unit,unit_price,total_amount,item_type,category,benefit_id,exclusion_amount,created_at
+
+TARGET PEDIAKID FOUND:
+  0: c23e64a8-d9e5-4e71-848e-35c38384e8d8
+  1: 0e31638c-133a-46ab-9da7-5885227553b7
+  2: PEDIAKID FER+VITAMINES B 125ML ® FPT Retail
+  3: 1
+  4: 
+  5: 23055556.0
+  6: 24900000.0
+  7: THUOC
+  8: {THUOC}
+  9: 5e4a6ffa-a7f0-46d9-a352-850ada3921c3
+  10: 
+  11: 2026-02-07 17:05:55
+--------------------
+TARGET PEDIAKID FOUND:
+  0: 18047a2d-74bc-435e-b2a1-bd52de4635d6
+  1: 2c6f1d63-aa40-414d-9a94-3006831bcb1c
+  2: PEDIAKID 22 VITAMINES .
+  3: 1
+  4: 
+  5: 2080907400.0
+  6: 2080910000.0
+  7: KHAC
+  8: 
+  9: 4224a626-dc29-40f4-af54-d77e57fa4164
+  10: 
+  11: 2025-12-23 10:30:27
+--------------------
+TARGET Perjeta FOUND:
+  0: 1c885894-ce80-4eed-8b0c-b7bc72f3d151
+  1: 30d4f25c-a4fc-4887-a9f1-e99153ebbc88
+  2: Perjeta[K][2-8ºC] /420mg/14ml
+  3: 1
+  4: Lọ
+  5: 4058215000.0
+  6: 4058215000.0
+  7: THUOC
+  8: {THUOC}
+  9: 
+  10: 
+  11: 2026-01-28 16:19:58
+--------------------
+TARGET Perjeta FOUND:
+  0: 3aa471a4-bf22-418b-9b46-d8883a8c72e0
+  1: 3e451d33-cfe2-4f3d-b0f1-9294f5d27478
+  2: Perjeta[K] [2-8ºC] /420mg/14ml
+  3: 1
+  4: Lọ
+  5: 4058215000.0
+  6: 4058215000.0
+  7: THUOC
+  8: {THUOC}
+  9: 
+  10: 
+  11: 2026-01-26 09:27:53
+--------------------

@@ -1,0 +1,11 @@
+﻿File: processed_DataChiPhi_part1.csv
+Columns: ['detail_id', 'claim_id', 'drug_or_service_name', 'quantity', 'unit', 'unit_price', 'total_amount', 'item_type', 'category', 'benefit_id', 'exclusion_amount', 'created_at']
+
+File: processed_DataHoSoBoiThuong_part1.csv
+Columns: ['claim_id', 'user_id', 'claim_number', 'full_name', 'identity_number', 'date_of_birth', 'address', 'phone_number', 'email', 'claim_date', 'claim_amount_req', 'claim_amount_vien_phi', 'claim_amount_approved', 'claim_status', 'approval_status', 'icd_code_primary', 'icd_name_primary', 'icd_codes_secondary', 'visit_date', 'admission_date', 'discharge_date', 'treatment_duration_days', 'doctor_name_exam', 'doctor_name_admit', 'clinical_notes', 'discharge_diagnosis', 'hospital_code', 'visit_type', 'beneficiary_account', 'beneficiary_name', 'contract_id', 'insurer_id', 'actual_receipt_date', 'claim_type', 'claim_amount_req_zscore', 'claim_amount_vien_phi_zscore', 'claim_amount_approved_zscore', 'claim_amount_req_is_outlier', 'claim_amount_vien_phi_is_outlier', 'claim_amount_approved_is_outlier']
+
+File: processed_DataNDBH_part1.csv
+Columns: ['user_id', 'identity_number', 'full_name', 'date_of_birth', 'address', 'phone_number', 'email', 'beneficiary_account', 'bank_code', 'beneficiary_name', 'contract_id', 'so_hop_dong', 'contract_level', 'contract_start_date', 'contract_end_date', 'premium_paid', 'salary', 'remaining_benefit_limit', 'active', 'created_at']
+
+File: processed_DataQuyenLoi_part1.csv
+Error reading D:\desktop_folder\04_Fraud_Detection\report\processed\processed_DataQuyenLoi_part1.csv: 'charmap' codec can't encode character '\u1ed1' in position 12: character maps to <undefined>

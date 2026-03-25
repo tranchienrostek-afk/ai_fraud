@@ -1,0 +1,55 @@
+--- DataQuyenLoi Diagnostic ---
+Sample size: 22680 rows
+
+Columns found after mapping:
+['policy_number', 'Số hồ sơ', 'Ngày vào viện', 'Ngày ra viện', 'Chẩn đoán ra viện', 'Chẩn đoán bệnh', 'Cơ sở khám chữa bệnh', 'Loại khám chữa bệnh', 'Quyền lợi bảo hiểm', 'Số tiền yêu cầu bồi thường', 'benefit_amount', 'Lý do từ chối', 'Ghi chú', 'Tên người được bảo hiểm', 'Số ngày quyền lợi được duyệt', 'ICD', 'status']
+
+Null Values:
+policy_number                       0
+Số hồ sơ                            0
+Ngày vào viện                       0
+Ngày ra viện                    16432
+Chẩn đoán ra viện                   0
+Chẩn đoán bệnh                      0
+Cơ sở khám chữa bệnh                0
+Loại khám chữa bệnh                 0
+Quyền lợi bảo hiểm                  0
+Số tiền yêu cầu bồi thường          0
+benefit_amount                      0
+Lý do từ chối                    7494
+Ghi chú                          7493
+Tên người được bảo hiểm             0
+Số ngày quyền lợi được duyệt    22680
+ICD                                 0
+status                              0
+dtype: int64
+
+[ERROR] Column benefit_limit missing!
+
+benefit_amount Statistics:
+count         22680.000000
+mean      122295706.876543
+std       294347028.780552
+min               0.000000
+25%        21000000.000000
+50%        57266450.000000
+75%       117651300.000000
+max      9500000000.000000
+Name: benefit_amount, dtype: object
+
+Average Benefit Amount: 122,295,707 VND
+[WARNING] Benefit values appear to be 100x scaled.
+
+Top 10 status:
+status
+Đã thanh toán              19751
+Đã duyệt                    2064
+Đang đề nghị thanh toán      608
+Đã đề nghị duyệt             157
+Chờ bổ sung chứng từ          48
+Huỷ hồ sơ                     31
+Từ chối thanh toán            10
+Bị trả lại                     6
+Đã thẩm định chủ động          3
+Đã bổ sung chứng từ            2
+Name: count, dtype: int64

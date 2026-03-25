@@ -1,0 +1,1 @@
+user_id,identity_number,full_name,date_of_birth,address,phone_number,email,beneficiary_account,bank_code,beneficiary_name,contract_id,so_hop_dong,contract_level,contract_start_date,contract_end_date,premium_paid,salary,remaining_benefit_limit,active,created_at

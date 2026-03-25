@@ -1,0 +1,30 @@
+HEADERS: ﻿detail_id,claim_id,drug_or_service_name,quantity,unit,unit_price,total_amount,item_type,category,benefit_id,exclusion_amount,created_at
+
+RAW LINE: 8ffd722e-61f6-4471-810e-96abe2af5188,33c7b387-5eac-45e0-bfbe-e3d9c89a2026,Cebest 100mg (cốm),4,Gói,8571428000.0,3600000.0,THUOC,{THUOC},4224a626-dc29-40f4-af54-d77e57fa4164,,2026-02-02 09:21:22
+  0: 8ffd722e-61f6-4471-810e-96abe2af5188
+  1: 33c7b387-5eac-45e0-bfbe-e3d9c89a2026
+  2: Cebest 100mg (cốm)
+  3: 4
+  4: Gói
+  5: 8571428000.0
+  6: 3600000.0
+  7: THUOC
+  8: {THUOC}
+  9: 4224a626-dc29-40f4-af54-d77e57fa4164
+  10: 
+  11: 2026-02-02 09:21:22
+--------------------
+RAW LINE: 396f812f-9b11-4501-9a77-8bd9ff3df940,3ee91f5b-f789-43d2-80ae-8f8b60eb71a1,Cebest 100mg (cốm),3,Gói,8571428000.0,2571428.0,THUOC,{THUOC},4224a626-dc29-40f4-af54-d77e57fa4164,,2026-03-04 15:07:33
+  0: 396f812f-9b11-4501-9a77-8bd9ff3df940
+  1: 3ee91f5b-f789-43d2-80ae-8f8b60eb71a1
+  2: Cebest 100mg (cốm)
+  3: 3
+  4: Gói
+  5: 8571428000.0
+  6: 2571428.0
+  7: THUOC
+  8: {THUOC}
+  9: 4224a626-dc29-40f4-af54-d77e57fa4164
+  10: 
+  11: 2026-03-04 15:07:33
+--------------------

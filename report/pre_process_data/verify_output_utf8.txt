@@ -1,0 +1,8 @@
+﻿VERIFYING CLAIM ID: 47a0395f-fee4-4588-84eb-3fca9c722ebe
+  Field           | Raw Value      | Cleaned Value  | Ratio (Raw/Clean)
+  ----------------|----------------|----------------|------------------
+  claim_amount_re |            nan |            nan |              nan
+  claim_amount_ap |              0 |              0 |             0.00
+  claim_amount_vi |              0 |              0 |             0.00
+
+--- Final Scaling Check ---

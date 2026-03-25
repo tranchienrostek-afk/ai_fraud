@@ -1,0 +1,22 @@
+﻿--- RAW DATA MAGNITUDES ---
+Row 0: Req=nan | Appr=nan | Fee=40,000,000
+Row 1: Req=nan | Appr=nan | Fee=39,800,000
+Row 2: Req=nan | Appr=0 | Fee=0
+Row 3: Req=nan | Appr=nan | Fee=169,630,000
+Row 4: Req=nan | Appr=0 | Fee=0
+Row 5: Req=nan | Appr=nan | Fee=170,074,000
+Row 6: Req=nan | Appr=0 | Fee=0
+Row 7: Req=nan | Appr=0 | Fee=0
+Row 8: Req=nan | Appr=0 | Fee=0
+Row 9: Req=nan | Appr=176,640 | Fee=39,080,000
+  -> Fee/Appr Ratio: 221.24
+Row 10: Req=nan | Appr=0 | Fee=0
+Row 11: Req=nan | Appr=0 | Fee=0
+Row 12: Req=nan | Appr=nan | Fee=132,964,500
+Row 13: Req=nan | Appr=0 | Fee=0
+Row 14: Req=nan | Appr=nan | Fee=75,600,000
+Row 15: Req=nan | Appr=nan | Fee=154,134,500
+Row 16: Req=nan | Appr=nan | Fee=65,700,000
+Row 17: Req=nan | Appr=nan | Fee=59,800,000
+Row 18: Req=nan | Appr=nan | Fee=442,866,000
+Row 19: Req=nan | Appr=0 | Fee=0

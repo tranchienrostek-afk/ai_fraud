@@ -1,0 +1,79 @@
+﻿Loading 3 files...
+Total Records: 19259
+
+--- Financial Stats (Raw) ---
+       claim_amount_req  claim_amount_approved
+count      3.000000e+00           1.920900e+04
+mean       1.736260e+06           1.438993e+06
+std        1.980140e+06           3.585150e+06
+min        1.500000e+05           0.000000e+00
+25%        6.266400e+05           2.475520e+05
+50%        1.103280e+06           6.861000e+05
+75%        2.529390e+06           1.258500e+06
+max        3.955500e+06           9.500000e+07
+
+--- Top 10 High-Value Claims (Approved) ---
+                                   claim_id                                                                icd_name_primary  claim_amount_approved
+10815  bd8fdb0c-1900-428d-bb7d-51a794fbf32f                                                                     U ác của vú             95000000.0
+11914  5ddea331-c997-4ea5-aa91-d41ffdae7410                                                                 Sốc nhiễm khuẩn             95000000.0
+12632  42cd7db3-0ee6-4375-9d88-36c67489f9e0                                                              Các thiếu máu khác             70000000.0
+15837  9d15d6c5-45dd-46b8-a2f5-2dc8f06bd65c                                            Tổn thương nông liên quan đầu với cổ             66946789.0
+6722   e62e9c11-dbeb-463a-98e6-4861ca3fab03         Nguyên nhân tử vong không rõ ràng (ill- defined) khác và không xác định             57000000.0
+14373  3706cf6b-b38e-465e-b57b-633c24d14017                                               Liệt hai chi dưới, không đặc hiệu             57000000.0
+15484  93bad033-c878-4ce5-923c-b51335f200da  Bong gân và căng cơ (xương mác) (xương chày) tổn thương phụ dây chằng khớp gối             56791162.0
+2978   550dd5d8-4760-4ee0-bc5e-4e4c96b08109                                                      Bệnh khác của mũi và xoang             55742502.0
+3659   9c008a1a-a60d-4c09-8305-953e338fb483                              Nhiễm khuẩn đường tiết niệu, vị trí không xác định             54483852.0
+14144  b2648f84-ec6a-47a8-8b3b-9a9af0005a3f                                                          Suy gan cấp và bán cấp             54026929.0
+
+--- Top 10 ICD Names ---
+icd_name_primary
+Viêm mũi họng cấp [cảm thường]      1239
+Viêm phế quản cấp                      697
+Viêm họng cấp                          637
+Sâu răng                               476
+Viêm mũi xoang cấp tính                299
+Viêm phế quản phổi, không đặc hiệu     291
+Tăng huyết áp vô căn (nguyên phát)     265
+Các loại khám tổng quát khác           245
+Viêm dạ dày và tá tràng                200
+Bệnh đái tháo đường type 2             193
+Name: count, dtype: int64
+
+--- Null Counts ---
+address                    12394
+email                          1
+claim_amount_req           19256
+claim_amount_approved         50
+icd_code_primary               7
+icd_name_primary               7
+icd_codes_secondary            1
+visit_date                     1
+admission_date                 5
+discharge_date             15642
+treatment_duration_days    15642
+doctor_name_exam           16774
+doctor_name_admit          19246
+clinical_notes                 6
+visit_type                     1
+contract_id                19112
+actual_receipt_date           21
+dtype: int64
+
+--- Claim Type Distribution ---
+claim_type
+1    13336
+2     4920
+3      858
+5      145
+Name: count, dtype: int64
+
+--- Claim Status Distribution ---
+claim_status
+8    15247
+4     1738
+5      859
+3      805
+1      296
+2      214
+6      100
+Name: count, dtype: int64

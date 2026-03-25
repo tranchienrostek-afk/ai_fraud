@@ -1,0 +1,6 @@
+﻿VERIFYING CLAIM ID: 221f5ec0-d168-434c-93ea-f2985b16b752
+  Field           | Raw Value      | Cleaned Value  | Ratio (Raw/Clean)
+  ----------------|----------------|----------------|------------------
+  claim_amount_re |            nan |            nan |              nan
+  claim_amount_ap |        176,640 |     17,664,000 |             0.01
+  claim_amount_vi |     39,080,000 |        390,800 |           100.00

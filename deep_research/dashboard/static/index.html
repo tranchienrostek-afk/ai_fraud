@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZINSU · Trung tâm Phối hợp Phân tích Trục lợi</title>
+    <link rel="stylesheet" href="/static/css/csi-theme.css">
+    <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header class="header">
+    <div>
+        <div class="header-title">AZINSU - Hệ thống AI giám sát hồ sơ bồi thường bảo hiểm</div>
+    </div>
+    <div style="text-align:right">
+        <div class="header-status">
+            <span class="dot"></span> HỆ THỐNG ONLINE
+        </div>
+        <div class="header-time" id="header-time"></div>
+    </div>
+</header>
+
+<!-- ── HERO METRICS ────────────────────────────────────── -->
+<section class="hero-grid" id="hero-grid">
+    <div class="hero-card">
+        <div class="hero-value" id="metric-claims">--</div>
+        <div class="hero-label">Tổng số Hồ sơ</div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-value high" id="metric-highfreq">--</div>
+        <div class="hero-label">Khách hàng Tần suất cao</div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-value critical" id="metric-anomaly">--</div>
+        <div class="hero-label">Tỷ lệ Bất thường %</div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-value medium" id="metric-syndicates">--</div>
+        <div class="hero-label">Mạng lưới Đối tượng</div>
+    </div>
+</section>
+
+<!-- ── TAB BAR ─────────────────────────────────────────── -->
+<nav class="tab-bar">
+    <button class="tab-btn active" data-tab="network">Mạng lưới Liên kết</button>
+    <button class="tab-btn" data-tab="audit">Quy tắc Kiểm soát</button>
+    <button class="tab-btn" data-tab="suspects">Đối tượng Nghi vấn</button>
+    <button class="tab-btn" data-tab="timeline">Dòng thời gian</button>
+    <button class="tab-btn" data-tab="diagnosis">Phân tích Bệnh lý</button>
+    <button class="tab-btn" data-tab="waiting">Thời gian chờ</button>
+    <button class="tab-btn" data-tab="reports">Báo cáo Tổng hợp</button>
+</nav>
+
+<!-- ── TAB CONTENT ─────────────────────────────────────── -->
+<main class="tab-content">
+
+    <!-- NETWORK TAB -->
+    <div class="tab-pane active" id="tab-network">
+        <div class="network-layout">
+            <div class="graph-container" id="cy-container">
+                <div class="graph-legend">
+                    <div class="graph-legend-item"><span class="legend-dot person"></span> Người bệnh</div>
+                    <div class="graph-legend-item"><span class="legend-dot bank"></span> Tài khoản Ngân hàng</div>
+                    <div class="graph-legend-item"><span class="legend-dot phone"></span> Số điện thoại</div>
+                    <div class="graph-legend-item"><span class="legend-dot hospital"></span> Cơ sở y tế</div>
+                    <div class="graph-legend-item"><span class="legend-dot claim"></span> Hồ sơ Claim</div>
+                    <div class="graph-legend-item"><span class="legend-dot doctor"></span> Bác sĩ</div>
+                    <div class="graph-legend-item"><span class="legend-dot expense"></span> Chi phí (Thuốc/DV)</div>
+                    <div class="graph-legend-item"><span class="legend-dot insurer"></span> Công ty Bảo hiểm</div>
+                </div>
+                <div class="loading" id="graph-loading">
+                    <div class="spinner"></div>
+                    Đang tải dữ liệu mạng lưới đối tượng...
+                </div>
+            </div>
+
+            <!-- INSPECTOR PANEL -->
+            <div class="inspector-panel" id="inspector-panel">
+                <div class="inspector-header">
+                    <span class="inspector-title">Thuộc tính Đối tượng</span>
+                    <button class="inspector-close" id="inspector-close" title="Đóng">&times;</button>
+                </div>
+                <div class="inspector-type" id="inspector-type"></div>
+                <div class="inspector-body" id="inspector-body"></div>
+                <div id="inspector-radar" style="height:250px; margin:10px 0; display:none;"></div>
+                <div class="inspector-actions" id="inspector-actions">
+                    <button class="inspector-btn expand" id="btn-expand" title="Bung nút liên quan">Bung nút liên quan</button>
+                    <button class="inspector-btn hide" id="btn-hide" title="Ẩn đối tượng">Ẩn đối tượng</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHARED STORY SECTION -->
+        <div id="person-story-section" class="chart-box full" style="display:none; margin-top:24px; border:1px solid var(--accent);">
+            <h3 style="color:var(--accent);margin-bottom:20px; display:flex; align-items:center; gap:10px;">
+                <span style="font-size:24px">📚</span> Câu chuyện Hồ sơ: <span id="story-person-name"></span>
+            </h3>
+            <div class="chart-row">
+                <div class="chart-area" id="story-chart-timeline" style="height:250px"></div>
+                <div class="chart-area" id="story-chart-diag" style="height:250px"></div>
+            </div>
+            <div class="chart-row" style="margin-top:20px">
+                <div class="chart-area" id="story-chart-hosp" style="height:250px"></div>
+                <div class="chart-area" id="story-chart-doctor" style="height:250px"></div>
+            </div>
+            <div class="chart-row" style="margin-top:20px">
+                <div class="chart-area" id="story-chart-financials" style="height:350px; flex:2;"></div>
+                <div class="chart-area" id="story-chart-radar" style="height:350px; flex:1;"></div>
+            </div>
+            
+            <div style="margin-top:20px; padding:0 10px;">
+                <h4 style="color:var(--accent); margin-bottom:10px;">📜 Danh sách Hồ sơ gần đây (Bấm ID để soi chi tiết)</h4>
+                <div style="overflow-x:auto">
+                    <table class="data-table" id="story-claims-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Hồ sơ</th>
+                                <th>Ngày</th>
+                                <th>Chẩn đoán</th>
+                                <th>Số tiền (Duyệt)</th>
+                                <th>Cơ sở y tế</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="story-claims-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="story-narrative" style="margin-top:20px; font-size:14px; color:var(--text-primary); line-height:1.8; background:rgba(255,255,255,0.05); padding:20px; border-radius:8px; border-left:4px solid var(--accent);"></div>
+        </div>
+
+    <!-- CLAIM DETAIL MODAL -->
+    <div id="claim-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content large" style="max-width:900px;">
+            <div class="modal-header">
+                <h3 style="color:var(--accent)">🔍 Kiểm soát Chi tiết Hồ sơ: <span id="modal-claim-id"></span></h3>
+                <button class="modal-close" onclick="closeClaimModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="claim-meta-info" class="meta-grid" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:20px; background:rgba(255,255,255,0.02); padding:15px; border-radius:8px;">
+                    <!-- Filled by JS -->
+                </div>
+                
+                <h4 style="color:#888; margin-bottom:10px;">🔬 Bảng kê Chi phí Thuốc & Dịch vụ</h4>
+                <div style="overflow-x:auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tên Thuốc/DV</th>
+                                <th>Danh mục</th>
+                                <th>SL</th>
+                                <th>Đơn giá</th>
+                                <th>Trung vị</th>
+                                <th>Tổng tiền</th>
+                                <th>Cảnh báo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="claim-expenses-body"></tbody>
+                    </table>
+                </div>
+                
+                <div id="claim-cost-analysis" style="margin-top:20px; padding:15px; background:rgba(255,68,68,0.05); border-left:4px solid var(--high); border-radius:4px;">
+                    <!-- Cost Analysis logic -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeClaimModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- AUDIT RULES TAB -->
+    <div class="tab-pane" id="tab-audit">
+        <div class="audit-grid" id="audit-grid">
+            <div class="loading">
+                <div class="spinner"></div>
+                Đang tải các quy tắc kiểm soát...
+            </div>
+        </div>
+        <div class="detail-panel" id="audit-detail"></div>
+    </div>
+
+    <!-- SUSPECTS TAB -->
+    <div class="tab-pane" id="tab-suspects">
+        <div id="suspects-table">
+            <div class="loading">
+                <div class="spinner"></div>
+                Đang tải danh sách đối tượng nghi vấn...
+            </div>
+        </div>
+    </div>
+
+    <!-- DIAGNOSIS TAB -->
+    <div class="tab-pane" id="tab-diagnosis">
+        <div class="chart-row">
+            <div class="chart-box full">
+                <div class="chart-title">Bản đồ Bất thường Bệnh lý (Trung vị vs Claim Max)</div>
+                <div class="chart-area" id="chart-diag-scatter" style="height:450px"></div>
+            </div>
+        </div>
+        <div id="diag-table-container" style="margin-top:20px"></div>
+        <div class="detail-panel" id="diag-detail"></div>
+    </div>
+
+    <!-- TIMELINE TAB -->
+    <div class="tab-pane" id="tab-timeline">
+        <div class="chart-row">
+            <div class="chart-box full">
+                <div class="chart-title">Dòng thời gian Hồ sơ theo tháng</div>
+                <div class="chart-area" id="chart-timeline"></div>
+            </div>
+        </div>
+        <div class="chart-row">
+            <div class="chart-box">
+                <div class="chart-title">Bản đồ nhiệt Hồ sơ (Ngày x Tháng)</div>
+                <div class="chart-area" id="chart-heatmap"></div>
+            </div>
+            <div class="chart-box">
+                <div class="chart-title">Thống kê Quy tắc theo mức độ Nghiêm trọng</div>
+                <div class="chart-area" id="chart-audit-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="tab-waiting">
+        <div class="chart-row">
+            <div class="chart-box full">
+                <div class="chart-title">Phân bố Hồ sơ theo Tháng kể từ ngày Hợp đồng (12 tháng đầu)</div>
+                <div class="chart-area" id="chart-waiting-histogram"></div>
+            </div>
+        </div>
+        <div id="waiting-detail-section" style="display:none; margin-top:1rem;">
+            <h3 id="waiting-detail-title" style="color:var(--accent); margin-bottom:0.5rem;"></h3>
+            <div style="overflow-x:auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Bệnh lý</th>
+                            <th>Người bệnh</th>
+                            <th>Ngày claim</th>
+                            <th>Số tiền</th>
+                            <th>Phân loại</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="waiting-detail-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORTS TAB -->
+    <div class="tab-pane" id="tab-reports">
+        <div class="chart-row">
+            <div class="chart-box full">
+                <div class="chart-title">🏥 Top 20 Cơ sở Y tế (Tần suất & Hiệu quả Phê duyệt)</div>
+                <div style="overflow-x:auto">
+                    <table class="data-table" id="report-hospitals-table">
+                        <thead>
+                            <tr>
+                                <th>Cơ sở Y tế</th>
+                                <th>Tần suất</th>
+                                <th>Tổng Yêu cầu</th>
+                                <th>Tổng Phê duyệt</th>
+                                <th>Tỷ lệ duyệt %</th>
+                                <th>Trung bình/Hồ sơ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-hospitals-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-row" style="margin-top:24px">
+            <div class="chart-box full">
+                <div class="chart-title">🦠 Top 20 Nhóm Bệnh (Tần suất & Biểu đồ Mùa vụ)</div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div style="overflow-x:auto">
+                        <table class="data-table" id="report-diagnoses-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã ICD</th>
+                                    <th>Tên Bệnh lý</th>
+                                    <th>Số ca</th>
+                                    <th>Tổng Tiền</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-diagnoses-body"></tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div id="chart-diagnosis-seasonality" style="height:300px; background:rgba(255,255,255,0.02); border-radius:8px; margin-bottom:15px;">
+                            <div style="line-height:300px; text-align:center; color:#555">Bấm vào bệnh lý để xem biểu đồ mùa vụ</div>
+                        </div>
+                        <div id="chart-diag-hospital" style="height:300px; background:rgba(255,255,255,0.02); border-radius:8px; margin-bottom:15px;">
+                            <div style="line-height:300px; text-align:center; color:#555">Chọn bệnh lý để so sánh CSYT</div>
+                        </div>
+                        <div class="chart-title" style="font-size:13px">🏥 Phân bổ CSYT của bệnh lý này (Top 10)</div>
+                        <div style="overflow-x:auto">
+                            <table class="data-table small">
+                                <thead>
+                                    <tr>
+                                        <th>Cơ sở Y tế</th>
+                                        <th>Tần suất</th>
+                                        <th>Trung bình Duyệt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="report-diag-hospitals-body">
+                                    <tr><td colspan="3" style="text-align:center; color:#555">Vui lòng chọn bệnh lý</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-row" style="margin-top:24px">
+            <div class="chart-box full">
+                <div class="chart-title">🚨 Danh sách "Khám Ngay Sau Khi Đăng Ký" (Anti-selection)</div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div>
+                        <p style="color:var(--high); font-size:12px; margin-bottom:10px;">
+                            * Những khách hàng phát sinh Claim trong vòng 0-7 ngày kể từ khi bắt đầu bảo hiểm.
+                        </p>
+                        <div style="overflow-x:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Khách hàng</th>
+                                        <th>Ngày BĐBH</th>
+                                        <th>Ngày Khám</th>
+                                        <th>Cách biệt</th>
+                                        <th>Số tiền</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="report-waiting-anomalies-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="chart-title" style="font-size:13px; margin:0 0 10px 0;">☣️ Cơ cấu bệnh lý của Nhóm Đăng ký mới (0-3 tháng)</div>
+                        <div id="chart-anti-selection-diag" style="height:350px; background:rgba(255,255,255,0.02); border-radius:8px;">
+                            <div style="line-height:350px; text-align:center; color:#555">Đang tải phân tích bệnh lý...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="/static/js/app.js"></script>
+<script src="/static/js/graph.js"></script>
+<script src="/static/js/charts.js"></script>
+
+</body>
+</html>

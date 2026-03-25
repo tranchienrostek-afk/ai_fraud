@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+neo4j
+qdrant-client
+openai
+azure-identity
+python-dotenv
+pandas
+scikit-learn
+xgboost
+shap
+streamlit
+requests
+pydantic
+tenacity

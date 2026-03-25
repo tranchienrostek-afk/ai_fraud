@@ -1,0 +1,21 @@
+﻿--- CLEANED DATA SAMPLE ---
+Row 0 (2cca6779...): Req=nan | Appr=nan | Fee=398,000 | Med=nan
+Row 1 (aed73917...): Req=nan | Appr=0 | Fee=0 | Med=624,827
+Row 2 (f446c081...): Req=nan | Appr=nan | Fee=1,696,300 | Med=2,623,400
+Row 3 (e316e356...): Req=nan | Appr=0 | Fee=0 | Med=380,940
+Row 4 (cb9ca4e5...): Req=nan | Appr=nan | Fee=1,700,740 | Med=800,000
+Row 5 (23c72585...): Req=nan | Appr=0 | Fee=0 | Med=841,263
+Row 6 (f4422e1b...): Req=nan | Appr=0 | Fee=0 | Med=790,578
+Row 7 (b8f42db1...): Req=nan | Appr=0 | Fee=0 | Med=1,136,258
+Row 8 (221f5ec0...): Req=nan | Appr=176,640 | Fee=390,800 | Med=771,333
+Row 9 (f8d8bac4...): Req=nan | Appr=0 | Fee=0 | Med=0
+Row 10 (fb5abd19...): Req=nan | Appr=0 | Fee=0 | Med=0
+Row 11 (12f8149d...): Req=nan | Appr=0 | Fee=0 | Med=709,079
+Row 12 (fb5a560c...): Req=nan | Appr=nan | Fee=756,000 | Med=700,000
+Row 13 (1f8bc12f...): Req=nan | Appr=nan | Fee=1,541,345 | Med=1,500,000
+Row 14 (a09f1d55...): Req=nan | Appr=nan | Fee=657,000 | Med=815,200
+Row 15 (b69c1117...): Req=nan | Appr=nan | Fee=598,000 | Med=361,002
+Row 16 (f5b91592...): Req=nan | Appr=nan | Fee=4,428,660 | Med=550,000
+Row 17 (34cf63e6...): Req=nan | Appr=0 | Fee=0 | Med=559,520
+Row 18 (aa1c6c5e...): Req=nan | Appr=206,256 | Fee=206,256 | Med=206,256
+Row 19 (fd09be9e...): Req=nan | Appr=nan | Fee=1,870,000 | Med=nan
