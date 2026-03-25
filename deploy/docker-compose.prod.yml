@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: drug_icd_mapping_prod_web
+    ports:
+      - "${HOST_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      - QDRANT_MODE=server
+      - QDRANT_URL=${QDRANT_URL:-http://qdrant:6333}
+      - QDRANT_MIN_POINTS=${QDRANT_MIN_POINTS:-0}
+      - UVICORN_WORKERS=${UVICORN_WORKERS:-1}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./notifications:/app/notifications
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')\" || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s

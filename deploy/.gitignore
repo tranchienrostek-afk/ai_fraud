@@ -1,0 +1,13 @@
+# Snapshot files (downloaded from cloud)
+data/seeds/qdrant_snapshot.zip
+data/seeds/qdrant_snapshot.zip.*
+data/seeds/.temp_migration/
+.migration_data/
+deploy_package*.zip
+*.snapshot
+
+# Environment
+.env
+.venv
+__pycache__/
+.pytest_cache/

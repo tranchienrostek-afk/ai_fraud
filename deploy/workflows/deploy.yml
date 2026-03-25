@@ -1,0 +1,336 @@
+name: CI/CD Pipeline - Staging → Production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "fastapi-medical-app/**"
+      - "csyt_mapping_service/**"
+      - "knowledge for agent/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+    inputs:
+      skip_staging:
+        description: "Skip staging, deploy directly to prod"
+        type: boolean
+        default: false
+
+jobs:
+  # ============================
+  # STAGE 1: Deploy to Staging
+  # ============================
+  staging:
+    name: 🚀 Deploy Staging
+    runs-on: self-hosted
+    outputs:
+      staging_passed: ${{ steps.test.outputs.passed }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
+        run: |
+          export RUNNER_ALLOW_RUNASROOT=1
+          export HOME=/root
+          export COMPOSE_PROJECT_NAME=drug_icd_staging
+
+          STAGING_DIR="/root/workspace/drug_icd_mapping_staging/fastapi-medical-app"
+
+          echo "=========================================="
+          echo "📦 STAGING DEPLOYMENT"
+          echo "=========================================="
+
+          cd $STAGING_DIR
+          git config --global --add safe.directory $STAGING_DIR
+
+          echo "1. Pulling latest code..."
+          git fetch origin main
+          git reset --hard origin/main
+
+          # echo "2. Downloading snapshot from Google Drive (Dockerized)..."
+          # docker run --rm -v $(pwd):/app -w /app python:3.9-slim /bin/bash -c "pip install gdown && python3 scripts/download_snapshot.py" || echo "⚠️ Download failed, will use existing data"
+
+          echo "3. Rebuilding Staging Container..."
+          # Cleanup conflict container by name
+          docker rm -f drug_icd_staging_web || true
+          docker-compose -f docker-compose.staging.yml rm -f -s staging-web || true
+          docker-compose -f docker-compose.staging.yml up -d --build staging-web
+
+          echo "4. Waiting for container startup..."
+          sleep 10
+
+          echo ">>> STAGING DEPLOYED <<<"
+          docker-compose -f docker-compose.staging.yml ps
+
+      - name: Run Tests on Staging
+        id: test
+        run: |
+          export RUNNER_ALLOW_RUNASROOT=1
+
+          echo "=========================================="
+          echo "🧪 RUNNING TESTS ON STAGING"
+          echo "=========================================="
+
+          # Health check with retry (entrypoint.sh can take 60s+ for DB/Qdrant waits)
+          echo "1. Health Check (with retry, max 120s)..."
+          HEALTH="FAILED"
+          for i in {1..12}; do
+            HEALTH=$(curl -s --max-time 10 http://localhost:8001/api/v1/health || echo "FAILED")
+            echo "Attempt $i/12: $HEALTH"
+            if [[ "$HEALTH" == *"healthy"* ]]; then
+              break
+            fi
+            sleep 10
+          done
+
+          if [[ "$HEALTH" != *"healthy"* ]]; then
+            echo "❌ Health check FAILED after 120s!"
+            echo "Container logs:"
+            docker logs drug_icd_staging_web --tail=50 || true
+            echo "passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          echo "✅ Health check PASSED"
+
+          # Run CRITICAL deployment tests ONLY
+          echo "2. Running SYSTEM SANITY Tests (Deployment Suite)..."
+          docker exec drug_icd_staging_web pytest /app/unittest/ -v --tb=short -m "deployment" || {
+            echo "❌ Deployment Sanity Tests FAILED!"
+            echo "passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          }
+          echo "✅ Deployment Sanity Tests PASSED"
+
+          # API smoke test
+          echo "3. API Smoke Test..."
+          API_RESULT=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8001/api/v1/drugs/?q=panadol)
+          if [[ "$API_RESULT" != "200" ]]; then
+            echo "❌ API smoke test FAILED! Status: $API_RESULT"
+            echo "passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          echo "✅ API smoke test PASSED"
+
+          echo "=========================================="
+          echo "✅ ALL STAGING TESTS PASSED"
+          echo "=========================================="
+          echo "passed=true" >> $GITHUB_OUTPUT
+
+  # ============================
+  # STAGE 2: Deploy to Production
+  # ============================
+  production:
+    name: 🚀 Deploy Production
+    runs-on: self-hosted
+    needs: staging
+    if: ${{ needs.staging.outputs.staging_passed == 'true' || github.event.inputs.skip_staging == 'true' }}
+
+    steps:
+      - name: Deploy to Production
+        run: |
+          export RUNNER_ALLOW_RUNASROOT=1
+          export HOME=/root
+          export COMPOSE_PROJECT_NAME=drug_icd_mapping_prod
+
+          PROD_DIR="/root/workspace/drug_icd_mapping/fastapi-medical-app"
+
+          echo "=========================================="
+          echo "🏭 PRODUCTION DEPLOYMENT"
+          echo "=========================================="
+
+          cd $PROD_DIR
+          git config --global --add safe.directory $PROD_DIR
+
+          echo "1. Pulling latest code..."
+          git fetch origin main
+          git reset --hard origin/main
+
+          # echo "2. Downloading snapshot from Google Drive (Dockerized)..."
+          # docker run --rm -v $(pwd):/app -w /app python:3.9-slim /bin/bash -c "pip install gdown && python3 scripts/download_snapshot.py" || echo "⚠️ Download failed, will use existing data"
+
+          echo "3. Rebuilding Production web service..."
+          COMPOSE_FILE="docker-compose.prod.yml"
+          if [ ! -f "$COMPOSE_FILE" ]; then
+            COMPOSE_FILE="docker-compose.yml"
+          fi
+          # Cleanup only the web container to avoid touching shared DB/Qdrant
+          docker rm -f drug_icd_mapping_prod_web || true
+          # Rebuild and start web only
+          docker-compose -f "$COMPOSE_FILE" up -d --build web
+
+          echo "4. Waiting for container startup..."
+          sleep 15
+
+          echo ">>> PRODUCTION DEPLOYED <<<"
+          docker-compose -f "$COMPOSE_FILE" ps
+
+      - name: Production Health Check
+        run: |
+          echo "4. Production Health Check..."
+
+          for i in {1..5}; do
+            HEALTH=$(curl -s http://localhost:8000/api/v1/health || echo "FAILED")
+            if [[ "$HEALTH" == *"healthy"* ]]; then
+              echo "✅ Production is HEALTHY!"
+              echo "$HEALTH"
+              break
+            fi
+            echo "Attempt $i: Waiting..."
+            sleep 5
+          done
+
+          # Check Qdrant specifically
+          echo "5. Qdrant Health Check..."
+          QDRANT_HEALTH=$(curl -s http://localhost:6335/healthz || echo "FAILED")
+          if [[ "$QDRANT_HEALTH" != *"passed"* ]]; then
+            echo "⚠️ Qdrant unhealthy, checking collection..."
+            COLLECTION=$(curl -s http://localhost:6335/collections/icd_full_kb)
+            if echo "$COLLECTION" | grep -q '"error"'; then
+              echo "🔧 Collection corrupted! Attempting auto-restore..."
+              PROD_DIR="/root/workspace/drug_icd_mapping/fastapi-medical-app"
+              chmod +x $PROD_DIR/scripts/restore_qdrant_backup.sh
+              $PROD_DIR/scripts/restore_qdrant_backup.sh || echo "⚠️ Restore failed, manual intervention needed"
+            fi
+          else
+            echo "✅ Qdrant is HEALTHY!"
+          fi
+
+      - name: Setup Daily Backup Cron
+        run: |
+          echo "6. Setting up daily backup cron..."
+          PROD_DIR="/root/workspace/drug_icd_mapping/fastapi-medical-app"
+
+          # Make scripts executable
+          chmod +x $PROD_DIR/scripts/daily_backup_qdrant.sh
+          chmod +x $PROD_DIR/scripts/restore_qdrant_backup.sh
+
+          # Create backup directory
+          mkdir -p /root/workspace/db_backup/qdrant
+
+          # Add cron job (remove old entries first to avoid duplicates)
+          CRON_CMD="0 2 * * * $PROD_DIR/scripts/daily_backup_qdrant.sh >> /var/log/qdrant_backup.log 2>&1"
+          (crontab -l 2>/dev/null | grep -v "daily_backup_qdrant.sh"; echo "$CRON_CMD") | crontab -
+
+          echo "✅ Cron job installed: Daily backup at 2:00 AM"
+          crontab -l | grep qdrant || echo "No cron entry found"
+
+          # Run immediate backup after successful deploy
+          echo "7. Running immediate backup..."
+          $PROD_DIR/scripts/daily_backup_qdrant.sh || echo "⚠️ Backup failed (Qdrant may be empty)"
+
+      - name: Deployment Summary
+        run: |
+          echo "=========================================="
+          echo "✅ CI/CD PIPELINE COMPLETE"
+          echo "=========================================="
+          echo "Staging:    http://localhost:8001 ✅"
+          echo "Production: http://localhost:8000 ✅"
+          echo "Commit:     ${{ github.sha }}"
+          echo ""
+          echo "🔄 Auto-Backup: Daily at 2:00 AM"
+          echo "📁 Backup Dir:  /root/workspace/db_backup/qdrant/"
+          echo "🔧 Restore:     scripts/restore_qdrant_backup.sh"
+          echo "=========================================="
+
+  # ============================
+  # STAGE 3: Deploy CSYT Mapping Service
+  # ============================
+  csyt_mapping:
+    name: 🏥 Deploy CSYT Mapping Service
+    runs-on: self-hosted
+    needs: staging
+    if: ${{ needs.staging.outputs.staging_passed == 'true' || github.event.inputs.skip_staging == 'true' }}
+
+    steps:
+      - name: Deploy CSYT Mapping Service
+        run: |
+          export RUNNER_ALLOW_RUNASROOT=1
+          export HOME=/root
+
+          CSYT_DIR="/root/workspace/csyt_mapping_service"
+          REPO_DIR="/root/workspace/drug_icd_mapping"
+
+          echo "=========================================="
+          echo "🏥 CSYT MAPPING SERVICE DEPLOYMENT"
+          echo "=========================================="
+
+          # Ensure directory exists
+          mkdir -p $CSYT_DIR
+
+          # Copy service from repo to workspace
+          echo "1. Syncing csyt_mapping_service files..."
+          cd $REPO_DIR
+          git config --global --add safe.directory $REPO_DIR
+          git fetch origin main
+          git reset --hard origin/main
+
+          # rsync from repo to workspace (excluding .git, .env, and caches)
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='__pycache__' \
+            --exclude='.env' \
+            $REPO_DIR/csyt_mapping_service/ $CSYT_DIR/
+
+          # Verify .env exists on server
+          if [ ! -f "$CSYT_DIR/.env" ]; then
+            echo "❌ ERROR: .env file missing at $CSYT_DIR/.env"
+            echo "Please create it with AZURE_EMBEDDINGS_*, AZURE_OPENAI_* keys"
+            exit 1
+          fi
+
+          echo "2. Building CSYT Mapping containers..."
+          cd $CSYT_DIR
+
+          # Use server-specific compose
+          COMPOSE_FILE="docker-compose.csyt.yml"
+          if [ ! -f "$COMPOSE_FILE" ]; then
+            COMPOSE_FILE="docker-compose.yml"
+          fi
+
+          # Cleanup old containers
+          docker rm -f csyt_mapping_api || true
+          docker-compose -f "$COMPOSE_FILE" up -d --build
+
+          echo "3. Waiting for startup..."
+          sleep 15
+
+          echo ">>> CSYT MAPPING SERVICE DEPLOYED <<<"
+          docker-compose -f "$COMPOSE_FILE" ps
+
+      - name: Build Qdrant Index (First Deploy)
+        run: |
+          export RUNNER_ALLOW_RUNASROOT=1
+
+          echo "4. Checking Qdrant index..."
+
+          # Check if collection exists and has data
+          COLLECTION_INFO=$(curl -s http://localhost:6333/collections/csyt_mapping 2>/dev/null || echo "NOT_FOUND")
+
+          if echo "$COLLECTION_INFO" | grep -q '"points_count":0\|"NOT_FOUND"\|"error"'; then
+            echo "🔧 Building Qdrant index (first deploy)..."
+            docker exec csyt_mapping_api python build_qdrant_index.py || {
+              echo "⚠️ Index build failed, service will work without vector search"
+            }
+          else
+            echo "✅ Qdrant index already exists, skipping build"
+          fi
+
+      - name: CSYT Health Check
+        run: |
+          echo "5. CSYT Mapping Health Check..."
+
+          for i in {1..5}; do
+            HEALTH=$(curl -s http://localhost:8002/health || echo "FAILED")
+            if echo "$HEALTH" | grep -q '"status":"healthy"'; then
+              echo "✅ CSYT Mapping Service is HEALTHY!"
+              echo "$HEALTH"
+              exit 0
+            fi
+            echo "Attempt $i: Waiting..."
+            sleep 5
+          done
+
+          echo "⚠️ CSYT service not fully healthy (may be degraded without index)"
+          curl -s http://localhost:8002/health || true
+ 

@@ -1,0 +1,21 @@
+# Use lightweight Python image (no Playwright)
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy requirement first for caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy app code
+COPY . .
+
+# Ensure runtime dirs exist (safety for reports/logs)
+RUN mkdir -p /app/notifications /app/logs /app/data \
+    && chmod +x /app/entrypoint.sh
+
+# Default to conservative workers; override via env
+ENV UVICORN_WORKERS=1
+
+# Use entrypoint for readiness checks before app start
+ENTRYPOINT ["/app/entrypoint.sh"]

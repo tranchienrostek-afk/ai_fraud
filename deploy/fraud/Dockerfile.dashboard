@@ -1,0 +1,27 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy dashboard code
+COPY deep_research/dashboard ./dashboard
+
+# Set working directory to dashboard
+WORKDIR /app/dashboard
+
+EXPOSE 5000
+
+# Copy and use entrypoint
+COPY deploy/fraud/entrypoint_dashboard.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
