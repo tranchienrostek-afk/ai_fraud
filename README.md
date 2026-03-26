@@ -5,9 +5,10 @@
 **AZINSU AI FRAUD** được định vị như một lớp phòng vệ chủ động trong quy trình bồi thường, sử dụng phân tích dữ liệu, nhận diện hành vi và phân tích liên kết để phát hiện sớm các dấu hiệu bất thường trong hồ sơ yêu cầu chi trả.
 
 ### Năng lực cốt lõi:
-- **Phát hiện đa tầng:** Hệ thống có khả năng nhận biết các trường hợp trùng lặp hồ sơ, khai báo chi phí thiếu hợp lý, tần suất sử dụng dịch vụ bất thường.
-- **Phân tích liên kết (Graph Analysis):** Chỉ ra những mối liên kết đáng ngờ giữa khách hàng, cơ sở y tế và bên thứ ba.
-- **Minh bạch & Tin cậy:** Thay vì đưa ra kết luận cảm tính, hệ thống tạo ra các cảnh báo có mức độ rủi ro, kèm theo căn cứ dữ liệu và dấu vết giải thích rõ ràng để hỗ trợ thẩm định viên ra quyết định.
+- **Phát hiện đa tầng:** Nhận diện một cách hệ thống và chính xác các trường hợp trùng lặp hồ sơ theo chuỗi thời gian và hành vi sử dụng dịch vụ.
+- **Kiểm soát chi phí:** Phát hiện các khoản chi phí kê khai không phù hợp với phác đồ điều trị, mặt bằng chi phí thị trường cũng như quyền lợi hợp đồng. 
+- **Cảnh báo sớm:** Theo dõi tần suất sử dụng dịch vụ được triển khai liên tục giúp cảnh báo sớm các trường hợp phát sinh hồ sơ bất thường. 
+- **Phân tích liên kết (Graph Analysis):** Bóc tách các mối quan hệ tiềm ẩn giữa khách hàng, cơ sở y tế và các bên liên quan, qua đó nhận diện các dấu hiệu trục lợi có tổ chức.
 
 Nhờ đó, việc phát hiện nguy cơ gian lận không còn phụ thuộc chủ yếu vào phán đoán thủ công, mà được thực hiện một cách có hệ thống, nhất quán và dựa trên dữ liệu.
 
