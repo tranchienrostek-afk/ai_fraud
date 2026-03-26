@@ -7,9 +7,13 @@
 
 **AZINSU AI FRAUD** là hệ thống phòng vệ chủ động trong quy trình bồi thường bảo hiểm y tế, sử dụng phân tích dữ liệu chuyên sâu, nhận diện hành vi bất thường và khai phá tri thức đồ thị (Knowledge Graph Mining) để phát hiện sớm các dấu hiệu gian lận trong hồ sơ yêu cầu chi trả.
 
-Hệ thống có khả năng nhận biết các trường hợp trùng lặp hồ sơ, khai báo chi phí thiếu hợp lý, tần suất sử dụng dịch vụ bất thường, cũng như những mối liên kết đáng ngờ giữa khách hàng, cơ sở y tế và bên thứ ba. Thay vì đưa ra kết luận cảm tính, hệ thống tạo ra các cảnh báo có mức độ rủi ro, kèm theo căn cứ dữ liệu và dấu vết giải thích rõ ràng để hỗ trợ thẩm định viên ra quyết định.
+Hệ thống có các năng lực cốt lõi vượt trội:
+- **Nhận diện một cách hệ thống và chính xác** các trường hợp trùng lặp hồ sơ theo chuỗi thời gian và hành vi sử dụng dịch vụ.
+- **Phát hiện các khoản chi phí kê khai không phù hợp** với phác đồ điều trị, mặt bằng chi phí thị trường cũng như quyền lợi hợp đồng. 
+- **Theo dõi tần suất sử dụng dịch vụ** được triển khai liên tục giúp cảnh báo sớm các trường hợp phát sinh hồ sơ bất thường. 
+- **Phân tích mạng lưới liên kết**, hệ thống có khả năng bóc tách các mối quan hệ tiềm ẩn giữa khách hàng, cơ sở y tế và các bên liên quan, qua đó nhận diện các dấu hiệu trục lợi có tổ chức.
 
-Nhờ đó, việc phát hiện nguy cơ gian lận không còn phụ thuộc chủ yếu vào phán đoán thủ công, mà được thực hiện một cách có hệ thống, nhất quán và dựa trên dữ liệu.
+Thay vì đưa ra kết luận cảm tính, hệ thống tạo ra các cảnh báo có mức độ rủi ro, kèm theo căn cứ dữ liệu và dấu vết giải thích rõ ràng để hỗ trợ thẩm định viên ra quyết định. Nhờ đó, việc phát hiện nguy cơ gian lận không còn phụ thuộc chủ yếu vào phán đoán thủ công, mà được thực hiện một cách có hệ thống, nhất quán và dựa trên dữ liệu.
 
 ---
 
