@@ -1,10 +1,17 @@
 # Hệ thống AI Phát hiện Trục lợi Bảo hiểm Đa tầng (Multi-layered Fraud Detection System)
 
-## 1. Giới thiệu
+## 1. Giới thiệu: Luôn đi trước gian lận một bước
 
-Dự án này thiết kế một hệ thống "Thám tử AI" thông minh nhằm giải quyết bài toán phát hiện trục lợi bảo hiểm (Insurance Fraud Detection). Thay vì sử dụng một mô hình đơn lẻ, hệ thống áp dụng kiến trúc **"Cái phễu đa tầng" (Multi-layered Sieve)**, kết hợp giữa Quy tắc (Rules), Đồ thị (Graph), Học máy (Machine Learning) và AI tạo sinh (GenAI).
+**AZINSU AI FRAUD** được định vị như một lớp phòng vệ chủ động trong quy trình bồi thường, sử dụng phân tích dữ liệu, nhận diện hành vi và phân tích liên kết để phát hiện sớm các dấu hiệu bất thường trong hồ sơ yêu cầu chi trả.
 
-Mục tiêu cốt lõi: **"Bắt đúng kẻ gian, nhưng không làm khó người ngay."**
+### Năng lực cốt lõi:
+- **Phát hiện đa tầng:** Hệ thống có khả năng nhận biết các trường hợp trùng lặp hồ sơ, khai báo chi phí thiếu hợp lý, tần suất sử dụng dịch vụ bất thường.
+- **Phân tích liên kết (Graph Analysis):** Chỉ ra những mối liên kết đáng ngờ giữa khách hàng, cơ sở y tế và bên thứ ba.
+- **Minh bạch & Tin cậy:** Thay vì đưa ra kết luận cảm tính, hệ thống tạo ra các cảnh báo có mức độ rủi ro, kèm theo căn cứ dữ liệu và dấu vết giải thích rõ ràng để hỗ trợ thẩm định viên ra quyết định.
+
+Nhờ đó, việc phát hiện nguy cơ gian lận không còn phụ thuộc chủ yếu vào phán đoán thủ công, mà được thực hiện một cách có hệ thống, nhất quán và dựa trên dữ liệu.
+
+---
 
 ## 2. Kiến trúc 5 Lớp Lọc (The 5-Layer Sieve)
 
