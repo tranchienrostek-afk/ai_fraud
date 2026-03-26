@@ -12,6 +12,17 @@
 
 Nhờ đó, việc phát hiện nguy cơ gian lận không còn phụ thuộc chủ yếu vào phán đoán thủ công, mà được thực hiện một cách có hệ thống, nhất quán và dựa trên dữ liệu.
 
+### 🌟 9 Trụ cột sức mạnh của AZINSU:
+1.  **Phòng vệ Chủ động:** Phát hiện sớm dựa trên hành vi.
+2.  **Kiến trúc 5 lớp:** Quy trình Multi-Agent sàng lọc tinh vi.
+3.  **Knowledge Graph:** Khai phá mối quan hệ qua 10 loại Node & 9 loại quan hệ.
+4.  **25 Quy tắc Kiểm soát:** Bộ lọc gian lận đa dạng từ quy tắc đến đồ thị.
+5.  **Chấm điểm Đa chiều:** Điểm rủi ro composite trên 5 trục trọng yếu.
+6.  **SIU Dashboard:** 7 góc nhìn phân tích chuyên sâu cho thẩm định viên.
+7.  **Công nghệ Đỉnh cao:** Neo4j, FastAPI, Cytoscape.js & Docker.
+8.  **Vận hành Thông minh:** Flow dữ liệu đến quyết định (Human-in-the-loop).
+9.  **Giá trị Thực tiễn:** Tối ưu hóa cho tất cả các bên liên quan.
+
 ---
 
 ## 2. Kiến trúc 5 Lớp Lọc (The 5-Layer Sieve)
